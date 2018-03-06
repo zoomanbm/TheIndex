@@ -15,14 +15,15 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      authors: []
+      authors: [],
+      loading: true
     }
   }
 
   componentDidMount() {
     instance.get('/api/authors/')
       .then(res => res.data)
-      .then(authors => this.setState({authors}))
+      .then(authors => this.setState({authors, loading: false}))
       .catch(err => console.error(err));
   }
 
@@ -35,9 +36,9 @@ class App extends Component {
           </div>
           <div className="content col-10">
             {
-              this.state.authors.length ?
-              <AuthorsList authors={this.state.authors}/> :
-              'loading...'
+              this.state.loading ?
+              'loading...' :
+              <AuthorsList authors={this.state.authors}/>
             }
           </div>
         </div>
