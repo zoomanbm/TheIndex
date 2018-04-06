@@ -5,6 +5,7 @@ import axios from 'axios';
 import Sidebar from './Sidebar';
 import Loading from './Loading';
 import AuthorsList from './AuthorsList';
+import AuthorDetail from './AuthorDetail';
 
 
 const instance = axios.create({
@@ -45,6 +46,7 @@ class App extends Component {
           </div>
           <div className="content col-10">
             {this.getView()}
+            <AuthorDetail />
           </div>
         </div>
       </div>
