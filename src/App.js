@@ -27,6 +27,14 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
+  getView() {
+    if (this.state.loading) {
+      return 'loading...'
+    } else {
+      return <AuthorsList authors={this.state.authors}/>
+    }
+  }
+
   render() {
     return (
       <div id="app" className="container-fluid">
@@ -35,11 +43,7 @@ class App extends Component {
             <Sidebar />
           </div>
           <div className="content col-10">
-            {
-              this.state.loading ?
-              'loading...' :
-              <AuthorsList authors={this.state.authors}/>
-            }
+            {this.getView()}
           </div>
         </div>
       </div>
