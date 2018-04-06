@@ -75,3 +75,7 @@ sidebar .menu-item.active, sidebar .menu-item a:hover {
 .card {
   margin: 20px;
 }
+
+.author img {
+  height: 300px;
+}
