@@ -35,6 +35,8 @@ class App extends Component {
   getView() {
     if (this.state.loading) {
       return <Loading />
+    } else if (this.state.currentAuthor.id) {
+      return <AuthorDetail author={this.state.currentAuthor}/>
     } else {
       return <AuthorsList authors={this.state.authors}
                           selectAuthor={this.selectAuthor} />
@@ -57,7 +59,6 @@ class App extends Component {
           </div>
           <div className="content col-10">
             {this.getView()}
-            <AuthorDetail author={this.state.currentAuthor}/>
           </div>
         </div>
       </div>
