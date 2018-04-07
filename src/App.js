@@ -23,6 +23,7 @@ class App extends Component {
     }
 
     this.selectAuthor = this.selectAuthor.bind(this);
+    this.unselectAuthor = this.unselectAuthor.bind(this);
   }
 
   componentDidMount() {
@@ -54,12 +55,16 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
+  unselectAuthor() {
+    this.setState({currentAuthor: {}});
+  }
+
   render() {
     return (
       <div id="app" className="container-fluid">
         <div className="row">
           <div className="col-2">
-            <Sidebar />
+            <Sidebar unselectAuthor={this.unselectAuthor}/>
           </div>
           <div className="content col-10">
             {this.getView()}
