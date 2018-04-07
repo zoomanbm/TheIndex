@@ -18,30 +18,25 @@ class App extends Component {
     super(props);
     this.state = {
       authors: [],
+      filteredAuthors: [],
       loading: true,
       currentAuthor: {}
     }
 
     this.selectAuthor = this.selectAuthor.bind(this);
     this.unselectAuthor = this.unselectAuthor.bind(this);
+    this.filterAuthors = this.filterAuthors.bind(this);
   }
 
   componentDidMount() {
     instance.get('/api/authors/')
       .then(res => res.data)
-      .then(authors => this.setState({authors, loading: false}))
+      .then(authors => this.setState({
+        authors,
+        filteredAuthors: authors,
+        loading: false,
+      }))
       .catch(err => console.error(err));
-  }
-
-  getView() {
-    if (this.state.loading) {
-      return <Loading />
-    } else if (this.state.currentAuthor.id) {
-      return <AuthorDetail author={this.state.currentAuthor}/>
-    } else {
-      return <AuthorsList authors={this.state.authors}
-                          selectAuthor={this.selectAuthor} />
-    }
   }
 
   selectAuthor(authorID) {
@@ -56,7 +51,30 @@ class App extends Component {
   }
 
   unselectAuthor() {
-    this.setState({currentAuthor: {}});
+    this.setState(prevState => ({
+      currentAuthor: {},
+      filteredAuthors: prevState.authors
+    }));
+  }
+
+  filterAuthors(query) {
+    query = query.toLowerCase()
+    let filteredAuthors = this.state.authors.filter(author => {
+      return `${author.first_name} ${author.last_name}`.toLowerCase().includes(query);
+    });
+    this.setState({filteredAuthors})
+  }
+
+  getView() {
+    if (this.state.loading) {
+      return <Loading />
+    } else if (this.state.currentAuthor.id) {
+      return <AuthorDetail author={this.state.currentAuthor}/>
+    } else {
+      return <AuthorsList authors={this.state.filteredAuthors}
+                          selectAuthor={this.selectAuthor}
+                          filterAuthors={this.filterAuthors} />
+    }
   }
 
   render() {
