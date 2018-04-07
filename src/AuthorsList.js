@@ -5,7 +5,7 @@ import AuthorCard from './AuthorCard';
 function AuthorsList(props) {
 
   const authors = props.authors.map(author => (
-    <AuthorCard key={author.first_name + author.last_name} {...author} />
+    <AuthorCard key={author.first_name + author.last_name} author={author} />
   ));
 
   return (
