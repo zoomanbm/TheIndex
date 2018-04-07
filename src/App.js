@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // Components
 import Sidebar from './Sidebar';
+import Loading from './Loading';
 import AuthorsList from './AuthorsList';
 
 
@@ -29,7 +30,7 @@ class App extends Component {
 
   getView() {
     if (this.state.loading) {
-      return 'loading...'
+      return <Loading />
     } else {
       return <AuthorsList authors={this.state.authors}/>
     }
