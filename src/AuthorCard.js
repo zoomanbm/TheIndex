@@ -3,7 +3,7 @@ import React from 'react';
 function AuthorCard(props) {
   return (
     <div className="col-4">
-      <a className="card">
+      <a href="#" className="card">
         <div className="image">
           <img className="card-img-top img-fluid" src={props.author.imageUrl} />
         </div>
