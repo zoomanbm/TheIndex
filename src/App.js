@@ -44,9 +44,13 @@ class App extends Component {
   }
 
   selectAuthor(authorID) {
+    this.setState({loading: true});
     instance.get(`/api/authors/${authorID}`)
       .then(res => res.data)
-      .then(author => this.setState({currentAuthor: author}))
+      .then(author => this.setState({
+        currentAuthor: author,
+        loading: false
+      }))
       .catch(err => console.error(err));
   }
 
