@@ -79,3 +79,7 @@ sidebar .menu-item.active, sidebar .menu-item a:hover {
 .author img {
   height: 300px;
 }
+
+.author .btn {
+  border-color: black;
+}
