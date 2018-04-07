@@ -54,7 +54,7 @@ class App extends Component {
           </div>
           <div className="content col-10">
             {this.getView()}
-            <AuthorDetail />
+            <AuthorDetail author={this.state.currentAuthor}/>
           </div>
         </div>
       </div>
