@@ -17,8 +17,10 @@ class App extends Component {
     super(props);
     this.state = {
       authors: [],
-      loading: true
-    }
+      loading: true,
+      currentAuthor: {},
+    };
+    this.selectAuthor = this.selectAuthor.bind(this);
   }
 
   componentDidMount() {
@@ -32,8 +34,14 @@ class App extends Component {
     if (this.state.loading) {
       return <Loading />
     } else {
-      return <AuthorsList authors={this.state.authors}/>
+      return <AuthorsList authors = {this.selectAuthor}/>
     }
+    //this.state.authors
+  }
+
+  selectAuthor(currentAuthor) {
+    this.setState ({currentAuthor})
+
   }
 
   render() {
