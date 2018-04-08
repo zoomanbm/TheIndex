@@ -51,10 +51,11 @@ class App extends Component {
   }
 
   unselectAuthor() {
-    this.setState(prevState => ({
+    const filteredAuthors = this.state.authors;
+    this.setState({
       currentAuthor: {},
-      filteredAuthors: prevState.authors
-    }));
+      filteredAuthors
+    });
   }
 
   filterAuthors(query) {
