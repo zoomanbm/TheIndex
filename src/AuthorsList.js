@@ -1,25 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import AuthorCard from './AuthorCard';
 import SearchBar from './SearchBar';
 
-function AuthorsList(props) {
+class AuthorsList extends Component {
 
-  const authors = props.authors.map(author => (
-    <AuthorCard key={author.first_name + author.last_name}
-                author={author}
-                selectAuthor={props.selectAuthor}/>
-  ));
+  componentWillUnmount() {
+    this.props.filterAuthors("");
+  }
 
-  return (
-    <div className="authors">
-      <h3>Authors</h3>
-      <SearchBar filterAuthors={props.filterAuthors} />
-      <div className="row">
-        {authors}
+  render() {
+    const authors = this.props.authors.map(author => (
+      <AuthorCard key={author.first_name + author.last_name}
+        author={author} />
+      ));
+
+    return (
+      <div className="authors">
+        <h3>Authors</h3>
+        <SearchBar changeHandler={this.props.filterAuthors} />
+        <div className="row">
+          {authors}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default AuthorsList;

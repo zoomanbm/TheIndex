@@ -53,7 +53,7 @@ sidebar .menu-item a:hover {
   color: white;
 }
 
-sidebar .menu-item.active, sidebar .menu-item a:hover {
+sidebar .menu-item .active, sidebar .menu-item a:hover {
   border-left: 3px solid #800C0C;
   text-decoration: underline;
 }

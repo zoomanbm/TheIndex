@@ -1,9 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 function AuthorCard(props) {
   return (
     <div className="col-4">
-      <a href="#" className="card" onClick={() => props.selectAuthor(props.author.id)}>
+      <Link to={`/authors/${props.author.id}`} className="card">
         <div className="image">
           <img className="card-img-top img-fluid" src={props.author.imageUrl} />
         </div>
@@ -13,7 +14,7 @@ function AuthorCard(props) {
           </h5>
           <small className="card-text">{props.author.books.length} books</small>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }

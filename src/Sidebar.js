@@ -1,12 +1,13 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 function Sidebar(props) {
   return (
     <sidebar>
-      <img src="theindex.svg" className="logo" />
+      <img src="/theindex.svg" className="logo" />
       <section>
-        <h4 className="menu-item active">
-          <a href="#" onClick={props.unselectAuthor}>AUTHORS</a>
+        <h4 className="menu-item">
+          <NavLink exact to="/authors">AUTHORS</NavLink>
         </h4>
       </section>
     </sidebar>

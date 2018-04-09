@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import axios from 'axios';
 
 // Components
@@ -7,10 +8,6 @@ import Loading from './Loading';
 import AuthorsList from './AuthorsList';
 import AuthorDetail from './AuthorDetail';
 
-
-const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com"
-});
 
 class App extends Component {
 
@@ -23,13 +20,11 @@ class App extends Component {
       currentAuthor: {}
     }
 
-    this.selectAuthor = this.selectAuthor.bind(this);
-    this.unselectAuthor = this.unselectAuthor.bind(this);
     this.filterAuthors = this.filterAuthors.bind(this);
   }
 
   componentDidMount() {
-    instance.get('/api/authors/')
+    axios.get('https://the-index-api.herokuapp.com/api/authors/')
       .then(res => res.data)
       .then(authors => this.setState({
         authors,
@@ -37,25 +32,6 @@ class App extends Component {
         loading: false,
       }))
       .catch(err => console.error(err));
-  }
-
-  selectAuthor(authorID) {
-    this.setState({loading: true});
-    instance.get(`/api/authors/${authorID}/`)
-      .then(res => res.data)
-      .then(author => this.setState({
-        currentAuthor: author,
-        loading: false
-      }))
-      .catch(err => console.error(err));
-  }
-
-  unselectAuthor() {
-    const filteredAuthors = this.state.authors;
-    this.setState({
-      currentAuthor: {},
-      filteredAuthors
-    });
   }
 
   filterAuthors(query) {
@@ -66,30 +42,29 @@ class App extends Component {
     this.setState({filteredAuthors})
   }
 
-  getView() {
-    if (this.state.loading) {
-      return <Loading />
-    } else if (this.state.currentAuthor.id) {
-      return <AuthorDetail author={this.state.currentAuthor}/>
-    } else {
-      return <AuthorsList authors={this.state.filteredAuthors}
-                          selectAuthor={this.selectAuthor}
-                          filterAuthors={this.filterAuthors} />
-    }
-  }
-
   render() {
     return (
-      <div id="app" className="container-fluid">
-        <div className="row">
-          <div className="col-2">
-            <Sidebar unselectAuthor={this.unselectAuthor}/>
+      <BrowserRouter>
+        <div id="app" className="container-fluid">
+          <div className="row">
+            <div className="col-2">
+              <Sidebar unselectAuthor={this.unselectAuthor}/>
+            </div>
+            <div className="content col-10">
+              {this.state.loading ?
+                <Loading /> :
+                <Switch>
+                  <Route exact path='/' render={() => <Redirect to='/authors' />}/>
+                  <Route path='/authors/:authorID' component={AuthorDetail}/>
+                  <Route path='/authors/'
+                         render={() =>
+                           <AuthorsList authors={this.state.filteredAuthors}
+                                        filterAuthors={this.filterAuthors} />}/>
+                </Switch>}
+              </div>
+            </div>
           </div>
-          <div className="content col-10">
-            {this.getView()}
-          </div>
-        </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }

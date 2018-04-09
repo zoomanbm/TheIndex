@@ -12,7 +12,7 @@
 
           handleChange(event) {
             this.setState({value: event.target.value});
-            this.props.filterAuthors(event.target.value);
+            this.props.changeHandler(event.target.value);
           }
 
           render() {
