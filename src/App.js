@@ -15,12 +15,8 @@ class App extends Component {
     super(props);
     this.state = {
       authors: [],
-      filteredAuthors: [],
-      loading: true,
-      currentAuthor: {}
+      loading: true
     }
-
-    this.filterAuthors = this.filterAuthors.bind(this);
   }
 
   componentDidMount() {
@@ -34,14 +30,6 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  filterAuthors(query) {
-    query = query.toLowerCase()
-    let filteredAuthors = this.state.authors.filter(author => {
-      return `${author.first_name} ${author.last_name}`.toLowerCase().includes(query);
-    });
-    this.setState({filteredAuthors})
-  }
-
   render() {
     return (
       <div id="app" className="container-fluid">
@@ -53,12 +41,10 @@ class App extends Component {
             {this.state.loading ?
               <Loading /> :
               <Switch>
-                <Route exact path='/' render={() => <Redirect to='/authors' />}/>
+                <Route exact path='/' render={() => <Redirect to='/authors'/>}/>
                 <Route path='/authors/:authorID' component={AuthorDetail}/>
                 <Route path='/authors/'
-                       render={() =>
-                         <AuthorsList authors={this.state.filteredAuthors}
-                                      filterAuthors={this.filterAuthors} />}/>
+                       render={() => <AuthorsList authors={this.state.authors}/>}/>
               </Switch>}
             </div>
           </div>

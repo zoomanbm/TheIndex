@@ -44,7 +44,7 @@ class AuthorDetail extends Component {
             {bookRows}
           </tbody>
         </table>
-      </div>
+      </div>;
   }
 }
 
