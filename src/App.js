@@ -44,27 +44,25 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div id="app" className="container-fluid">
-          <div className="row">
-            <div className="col-2">
-              <Sidebar unselectAuthor={this.unselectAuthor}/>
-            </div>
-            <div className="content col-10">
-              {this.state.loading ?
-                <Loading /> :
-                <Switch>
-                  <Route exact path='/' render={() => <Redirect to='/authors' />}/>
-                  <Route path='/authors/:authorID' component={AuthorDetail}/>
-                  <Route path='/authors/'
-                         render={() =>
-                           <AuthorsList authors={this.state.filteredAuthors}
-                                        filterAuthors={this.filterAuthors} />}/>
-                </Switch>}
-              </div>
+      <div id="app" className="container-fluid">
+        <div className="row">
+          <div className="col-2">
+            <Sidebar unselectAuthor={this.unselectAuthor}/>
+          </div>
+          <div className="content col-10">
+            {this.state.loading ?
+              <Loading /> :
+              <Switch>
+                <Route exact path='/' render={() => <Redirect to='/authors' />}/>
+                <Route path='/authors/:authorID' component={AuthorDetail}/>
+                <Route path='/authors/'
+                       render={() =>
+                         <AuthorsList authors={this.state.filteredAuthors}
+                                      filterAuthors={this.filterAuthors} />}/>
+              </Switch>}
             </div>
           </div>
-      </BrowserRouter>
+        </div>
     );
   }
 }
