@@ -13,7 +13,6 @@ class AuthorDetail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("update")
     if (prevProps.match.params.authorID !== this.props.match.params.authorID) {
       this.getAuthor();
     }
