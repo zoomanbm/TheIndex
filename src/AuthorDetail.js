@@ -1,11 +1,14 @@
 import React from 'react';
 
-function AuthorDetail() {
+function AuthorDetail(props) {
+  
+const books = props.books.map(books => {books});
+
   return (
 		<div className="author col-xs-10">
 		    <div>
-		        <h3>I SHOULD BE AN AUTHOR NAME</h3>
-		        <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=IshouldBEanIMAGE&w=300&h=300" className="img-thumbnail"/>
+		        <h3>{props.author.first_name} {props.author.last_name}</h3>
+		        <img src={props.author.imageUrl}/>
 		    </div>
 		    <table className='mt-3 table'>
 		        <thead>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import Sidebar from './Sidebar';
 import Loading from './Loading';
 import AuthorsList from './AuthorsList';
+import AuthorDetail from './AuthorDetail';
 
 
 const instance = axios.create({
@@ -34,8 +35,10 @@ class App extends Component {
     if (this.state.loading) {
       return <Loading />
     } else {
-      return <AuthorsList authors = {this.selectAuthor}/>
+      return <AuthorsList authors={this.state.authors} selectAuthor={this.selectAuthor} />
+      // return <AuthorsList authors = {this.selectAuthor} {this.state.authors} />
     }
+
     //this.state.authors
   }
 
@@ -53,6 +56,7 @@ class App extends Component {
           </div>
           <div className="content col-10">
             {this.getView()}
+            <AuthorDetail author={this.state.currentAuthor}/>
           </div>
         </div>
       </div>
