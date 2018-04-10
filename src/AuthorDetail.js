@@ -8,17 +8,28 @@ class AuthorDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      author: {},
-      loading: true
+      author: {}
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("update")
+    if (prevProps.match.params.authorID !== this.props.match.params.authorID) {
+      this.getAuthor();
     }
   }
 
   componentDidMount() {
+    this.getAuthor();
+  }
+
+  getAuthor() {
     const authorID = this.props.match.params.authorID
+    this.setState({loading: true});
     axios.get(`https://the-index-api.herokuapp.com/api/authors/${authorID}/`)
-      .then(res => res.data)
-      .then(author => this.setState({author, loading: false}))
-      .catch(err => console.error(err));
+    .then(res => res.data)
+    .then(author => this.setState({author, loading: false}))
+    .catch(err => console.error(err));
   }
 
   render() {
