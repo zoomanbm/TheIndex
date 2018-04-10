@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import AuthorCard from './AuthorCard';
 import SearchBar from './SearchBar';
-import Loading from './Loading';
 
 class AuthorsList extends Component {
 
